@@ -2,7 +2,9 @@ package com.example.spring.security.example;
 
 import com.example.spring.security.example.model.User;
 import com.example.spring.security.example.model.UserAuthority;
+import com.example.spring.security.example.repository.UserAuthRepository;
 import com.example.spring.security.example.repository.UserRepository;
+import com.example.spring.security.example.service.SystemUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,9 +29,13 @@ public class Application extends AbstractSecurityWebApplicationInitializer {
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private SystemUserDetailService systemUserDetailService;
+
     @Override
     protected UserDetailsService userDetailsService() {
-        return super.userDetailsService();
+        return this.systemUserDetailService;
     }
 
     @Override
