@@ -17,6 +17,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
 public class Application extends AbstractSecurityWebApplicationInitializer {
@@ -52,6 +54,14 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 }
 
+@Configuration
+class WebmvcConfig extends WebMvcConfigurerAdapter {
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
+    }
+}
+
 @Component
 class InitRunner implements CommandLineRunner {
     private final UserRepository userRepository;
@@ -66,11 +76,11 @@ class InitRunner implements CommandLineRunner {
         UserAuthority admin = new UserAuthority("ADMIN");
         UserAuthority guest = new UserAuthority("GUEST");
         User adminUser = new User("admin", "password",
-                true, false,
+                true, true,
                 true, true);
         adminUser.getAuthorities().add(admin);
         User guestUser = new User("guest", "password",
-                true, false,
+                true, true,
                 true, true);
         guestUser.getAuthorities().add(guest);
         this.userRepository.save(adminUser);

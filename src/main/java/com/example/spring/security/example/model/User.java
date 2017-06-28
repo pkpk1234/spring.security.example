@@ -32,7 +32,7 @@ public class User implements UserDetails {
         this.isEnabled = isEnabled;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "user_auth",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "auth_id", referencedColumnName = "id")})
