@@ -50,7 +50,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error")
                 .permitAll()
                 .and()
-                .logout().permitAll();
+                .logout().permitAll()
+                .and()
+                .antMatcher("/webjars/*").anonymous();
     }
 }
 
