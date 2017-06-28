@@ -21,13 +21,14 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
-public class Application extends AbstractSecurityWebApplicationInitializer {
+public class Application extends AbstractSecurityWebApplicationInitializer {//add security filter config
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 }
 
+// add security config
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
