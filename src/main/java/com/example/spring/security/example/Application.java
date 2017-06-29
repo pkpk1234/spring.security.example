@@ -4,6 +4,7 @@ import com.example.spring.security.example.model.User;
 import com.example.spring.security.example.model.UserAuthority;
 import com.example.spring.security.example.repository.UserAuthRepository;
 import com.example.spring.security.example.repository.UserRepository;
+import com.example.spring.security.example.security.HomeAuthenticationSuccessHandler;
 import com.example.spring.security.example.security.RefererRedirectionAuthenticationSuccessHandler;
 import com.example.spring.security.example.service.SystemUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,16 +45,14 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().successHandler(new RefererRedirectionAuthenticationSuccessHandler())
+        http.authorizeRequests().anyRequest().authenticated().and()
+                .formLogin().successHandler(new HomeAuthenticationSuccessHandler())
                 .loginPage("/login")
                 .failureUrl("/login?error").permitAll()
                 .and()
                 .logout().permitAll()
-                .and()
-                .antMatcher("/webjars/*").anonymous();
+                /*.and()
+                .antMatcher("/webjars*//*").anonymous()*/;
     }
 
 }
